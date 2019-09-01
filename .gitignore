@@ -1,1 +1,6 @@
+#IntelliJ IDEA files
 .idea/
+# Class files
+target
+# Simulation output
+output
