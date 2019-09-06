@@ -2,7 +2,7 @@ package dk.stemadsen.ecosystem
 
 import dk.stemadsen.ecosystem.utils.FileWriter
 
-class Ecosystem {
+class EcosystemSimulator {
 
     static void main(String[] args) {
         Simulation simulation = new Simulation()
