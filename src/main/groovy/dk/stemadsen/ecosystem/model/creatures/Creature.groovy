@@ -6,8 +6,8 @@ abstract class Creature {
 
     Position position
 
-    Creature() {
-        position = new Position()
+    Creature(Position position) {
+        this.position = position
     }
 
     abstract void act()

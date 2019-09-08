@@ -8,15 +8,23 @@ import static dk.stemadsen.ecosystem.utils.FileWriter.writeToOutputFile
 class World {
 
     long age
+    Terrain terrain = new Terrain()
     List<Creature> creatures = []
 
     World() {
         age = 0
-        createCreates()
+        spawnCreatures()
     }
 
-    void createCreates() {
-        creatures += [new Bunny()]
+    void spawnCreatures() {
+        (1..100).each {
+            Position position = terrain.newFreePosition
+            if (!position)
+                return
+            Bunny bunny = new Bunny(position)
+            creatures.add(bunny)
+            terrain.setOccupied(position)
+        }
     }
 
     void advanceTime() {
