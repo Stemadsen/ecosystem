@@ -7,8 +7,11 @@ import spock.lang.Specification
 class WorldSpec extends Specification {
 
     def "it should initialize world"() {
-        when:
+        given:
             World world = new World()
+
+        when:
+            world.create()
 
         then: "its age is initialized correctly"
             world.age == 0

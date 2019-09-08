@@ -11,7 +11,7 @@ class World {
     Terrain terrain = new Terrain()
     List<Creature> creatures = []
 
-    World() {
+    void create() {
         age = 0
         spawnCreatures()
     }

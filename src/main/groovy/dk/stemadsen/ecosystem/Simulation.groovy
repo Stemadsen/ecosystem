@@ -15,6 +15,7 @@ class Simulation {
 
     void run() {
         World world = new World()
+        world.create()
         (1..numberOfCycles).each {
             world.recordState()
             world.advanceTime()
