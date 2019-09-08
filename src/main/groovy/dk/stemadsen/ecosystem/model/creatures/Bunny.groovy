@@ -8,8 +8,18 @@ class Bunny extends Creature {
         super(position)
     }
 
-    void act() {
+    @Override
+    int getMaxAge() {
+        return 100
+    }
+
+    @Override
+    boolean act() {
+        if (!super.act())
+            return false
+
         hop()
+        return true
     }
 
     void hop() {

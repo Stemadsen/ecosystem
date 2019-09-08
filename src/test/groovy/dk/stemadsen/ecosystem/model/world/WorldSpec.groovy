@@ -1,8 +1,10 @@
 package dk.stemadsen.ecosystem.model.world
 
+import dk.stemadsen.ecosystem.model.creatures.Bunny
 import dk.stemadsen.ecosystem.model.creatures.Creature
-import spock.lang.Ignore
 import spock.lang.Specification
+
+import static dk.stemadsen.ecosystem.TestDataUtil.createBunny
 
 class WorldSpec extends Specification {
 
@@ -24,19 +26,12 @@ class WorldSpec extends Specification {
             world.creatures.every { !world.terrain.isFree(it.position) }
     }
 
-    @Ignore("java.lang.ArrayIndexOutOfBoundsException: 0")
     def "it should advance time"() {
         given:
-            List<Creature> creatures = [new Creature() {
-                boolean actHasBeenCalled = false
-                @Override
-                void act() {
-                    actHasBeenCalled = true
-                }
+            List<Creature> creatures = [Mock(Bunny) {
+                3 * act() >> true
             }] * 3
-            World world = Mock(World) {
-                it.creatures = creatures
-            }
+            World world = new World(creatures: creatures)
 
         when:
             world.advanceTime()
@@ -45,6 +40,21 @@ class WorldSpec extends Specification {
             world.age == 1
 
         and: "every creature's act method has been called"
-            creatures.every { it.actHasBeenCalled }
+            true
+    }
+
+    def "it should remove dead creatures from the world"() {
+        given:
+            Creature creature = createBunny()
+            World world = new World(creatures: [creature])
+
+        when:
+            world.removeCreature(creature)
+
+        then: "the create is removed from the world's list of creatures"
+            !world.creatures.contains(creature)
+
+        and: "the creature's position in the terrain is marked as free"
+            world.terrain.isFree(creature.position)
     }
 }

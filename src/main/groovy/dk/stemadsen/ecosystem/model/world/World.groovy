@@ -23,18 +23,25 @@ class World {
                 return
             Bunny bunny = new Bunny(position)
             creatures.add(bunny)
-            terrain.setOccupied(position)
+            terrain.markAsOccupied(position)
         }
     }
 
     void advanceTime() {
         age++
         creatures.each {
-            it.act()
+            boolean isDead = !it.act()
+            if (isDead)
+                removeCreature(it)
         }
     }
 
+    private void removeCreature(Creature creature) {
+        creatures.remove(creature)
+        terrain.markAsFree(creature.getPosition())
+    }
+
     void recordState() {
-        writeToOutputFile "$age;${creatures[0].position.x};${creatures[0].position.y}"
+        writeToOutputFile "$age;${creatures[0].getPosition().x};${creatures[0].getPosition().y}"
     }
 }
