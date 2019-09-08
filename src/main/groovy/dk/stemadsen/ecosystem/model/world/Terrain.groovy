@@ -17,20 +17,19 @@ class Terrain {
             return null
         }
 
-        int x = random.nextInt(X_LENGTH)
-        int y = random.nextInt(Y_LENGTH)
-        while (!isFree(x, y)) {
-            x = random.nextInt(X_LENGTH)
-            y = random.nextInt(Y_LENGTH)
+        Position position = new Position(random.nextInt(X_LENGTH), random.nextInt(Y_LENGTH))
+        while (!isFree(position)) {
+            position.x = random.nextInt(X_LENGTH)
+            position.y = random.nextInt(Y_LENGTH)
         }
-        return new Position(x, y)
+        return position
     }
 
     void setOccupied(Position position) {
         grid[position.x][position.y] = true
     }
 
-    boolean isFree(int x, int y) {
-        return !grid[x][y]
+    boolean isFree(Position position) {
+        return !grid[position.x][position.y]
     }
 }
