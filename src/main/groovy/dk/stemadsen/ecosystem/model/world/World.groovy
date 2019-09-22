@@ -8,7 +8,7 @@ import static dk.stemadsen.ecosystem.utils.FileWriter.writeToOutputFile
 class World {
 
     long age
-    Terrain terrain = new Terrain()
+    Terrain terrain = new Terrain(100)
     List<Creature> creatures = []
 
     void create() {

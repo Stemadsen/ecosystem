@@ -4,23 +4,32 @@ class Terrain {
 
     Random random = new Random()
 
-    final static int X_LENGTH = 100
-    final static int Y_LENGTH = 100
-    /** An array of arrays where each cell value indicates whether it is occupied. */
-    Boolean[][] grid = new Boolean[X_LENGTH][Y_LENGTH]
+    int height
+    int width
+    /** The cells of the terrain, each boolean indicating whether that cell is occupied. */
+    boolean[][] grid
+
+    Terrain(int height, int width) {
+        this.height = height
+        this.width = width
+        grid = new boolean[height][width]
+    }
+
+    Terrain(int size) {
+        this(size, size)
+    }
 
     Position getNewFreePosition() {
         if (grid.every {
             it.every()
-        }) {
+        })
             // No more room
             return null
-        }
 
-        Position position = new Position(random.nextInt(X_LENGTH), random.nextInt(Y_LENGTH))
+        Position position = new Position(random.nextInt(height), random.nextInt(width))
         while (!isFree(position)) {
-            position.x = random.nextInt(X_LENGTH)
-            position.y = random.nextInt(Y_LENGTH)
+            position.x = random.nextInt(height)
+            position.y = random.nextInt(width)
         }
         return position
     }
