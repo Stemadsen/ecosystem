@@ -7,12 +7,12 @@ import static dk.stemadsen.ecosystem.utils.FileWriter.writeToOutputFile
 
 class World {
 
-    long age
+    long time
     Terrain terrain = new Terrain(100)
     List<Creature> creatures = []
 
     void create() {
-        age = 0
+        time = 0
         spawnCreatures()
     }
 
@@ -28,7 +28,7 @@ class World {
     }
 
     void advanceTime() {
-        age++
+        time++
         creatures.each {
             boolean isDead = !it.act()
             if (isDead)
@@ -42,6 +42,6 @@ class World {
     }
 
     void recordState() {
-        writeToOutputFile "$age;${creatures[0].getPosition().x};${creatures[0].getPosition().y}"
+        writeToOutputFile "$time;${creatures.size()}"
     }
 }

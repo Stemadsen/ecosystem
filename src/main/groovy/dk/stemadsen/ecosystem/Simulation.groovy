@@ -24,6 +24,6 @@ class Simulation {
     }
 
     private static void prepareRecordState() {
-        writeToOutputFile "age;bunny x;bunny y"
+        writeToOutputFile "time;creatures"
     }
 }

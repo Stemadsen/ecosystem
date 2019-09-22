@@ -15,8 +15,8 @@ class WorldSpec extends Specification {
         when:
             world.create()
 
-        then: "its age is initialized correctly"
-            world.age == 0
+        then: "its time is initialized correctly"
+            world.time == 0
 
         and: "its creatures are initialized correctly"
             world.creatures.size() == 100
@@ -36,8 +36,8 @@ class WorldSpec extends Specification {
         when:
             world.advanceTime()
 
-        then: "age is increased"
-            world.age == 1
+        then: "time is increased"
+            world.time == 1
 
         and: "every creature's act method has been called"
             true
