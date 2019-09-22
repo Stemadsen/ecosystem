@@ -12,13 +12,13 @@ class WorldSpec extends Specification {
         given:
             World world = new World()
 
+        expect: "its time is initialized correctly"
+            world.time == 0
+
         when:
             world.create()
 
-        then: "its time is initialized correctly"
-            world.time == 0
-
-        and: "its creatures are initialized correctly"
+        then: "its creatures are initialized correctly"
             world.creatures.size() == 100
             world.creatures.every { it.position }
 

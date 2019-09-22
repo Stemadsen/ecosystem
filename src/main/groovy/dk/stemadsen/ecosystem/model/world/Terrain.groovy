@@ -2,8 +2,6 @@ package dk.stemadsen.ecosystem.model.world
 
 class Terrain {
 
-    Random random = new Random()
-
     int height
     int width
     /** The cells of the terrain, each boolean indicating whether that cell is occupied. */
@@ -19,21 +17,6 @@ class Terrain {
         this(size, size)
     }
 
-    Position getNewFreePosition() {
-        if (grid.every {
-            it.every()
-        })
-            // No more room
-            return null
-
-        Position position = new Position(random.nextInt(height), random.nextInt(width))
-        while (!isFree(position)) {
-            position.x = random.nextInt(height)
-            position.y = random.nextInt(width)
-        }
-        return position
-    }
-
     /**
      * Returns a random free position adjacent (not diagonally) to the given position, if one exists, or null otherwise.
      */
@@ -41,7 +24,7 @@ class Terrain {
         List<Position> freeNeighbors = findAllFreeAdjacentPositions(position)
         if (!freeNeighbors)
             return null
-        return freeNeighbors[random.nextInt(freeNeighbors.size())]
+        return freeNeighbors[new Random().nextInt(freeNeighbors.size())]
     }
 
     /**

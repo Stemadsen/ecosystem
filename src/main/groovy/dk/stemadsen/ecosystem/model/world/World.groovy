@@ -7,20 +7,26 @@ import static dk.stemadsen.ecosystem.utils.FileWriter.writeToOutputFile
 
 class World {
 
-    long time
+    long time = 0
     Terrain terrain = new Terrain(100)
     List<Creature> creatures = []
 
     void create() {
-        time = 0
         spawnCreatures()
     }
 
     void spawnCreatures() {
-        (1..100).each {
-            Position position = terrain.newFreePosition
-            if (!position)
-                return
+        int height = terrain.height
+        int width = terrain.width
+        int noOfCreatures = 100
+
+        Random random = new Random()
+        (1..noOfCreatures).each {
+            Position position = new Position(random.nextInt(height), random.nextInt(width))
+            while (!terrain.isFree(position)) {
+                position.x = random.nextInt(height)
+                position.y = random.nextInt(width)
+            }
             Bunny bunny = new Bunny(terrain, position)
             creatures.add(bunny)
             terrain.markAsOccupied(position)
