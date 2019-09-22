@@ -11,7 +11,7 @@ class Bunny extends Creature {
 
     @Override
     int getMaxAge() {
-        return 100
+        return 10
     }
 
     @Override

@@ -29,10 +29,11 @@ class World {
 
     void advanceTime() {
         time++
-        creatures.each {
-            boolean isDead = !it.act()
-            if (isDead)
-                removeCreature(it)
+        Collection<Creature> deadCreatures = creatures.findAll {
+            !it.act()
+        }
+        deadCreatures.each {
+            removeCreature(it)
         }
     }
 

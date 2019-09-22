@@ -6,12 +6,12 @@ import static dk.stemadsen.ecosystem.TestDataUtil.createBunny
 
 class BunnySpec extends Specification {
 
-    def "it should die of age"() {
+    def "it should die of old age"() {
         given:
             Bunny bunny = createBunny()
 
         expect:
-            bunny.maxAge == 100
+            bunny.maxAge == 10
 
         when:
             bunny.age = bunny.maxAge
