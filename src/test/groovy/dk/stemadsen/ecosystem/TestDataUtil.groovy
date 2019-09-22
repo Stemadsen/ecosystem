@@ -1,6 +1,6 @@
 package dk.stemadsen.ecosystem
 
-import dk.stemadsen.ecosystem.model.creatures.Bunny
+import dk.stemadsen.ecosystem.model.animals.Bunny
 import dk.stemadsen.ecosystem.model.world.Position
 import dk.stemadsen.ecosystem.model.world.Terrain
 

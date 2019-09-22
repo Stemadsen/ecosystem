@@ -1,9 +1,9 @@
-package dk.stemadsen.ecosystem.model.creatures
+package dk.stemadsen.ecosystem.model.animals
 
 import dk.stemadsen.ecosystem.model.world.Position
 import dk.stemadsen.ecosystem.model.world.Terrain
 
-class Bunny extends Creature {
+class Bunny extends Animal {
 
     Bunny(Terrain terrain, Position position) {
         super(terrain, position)

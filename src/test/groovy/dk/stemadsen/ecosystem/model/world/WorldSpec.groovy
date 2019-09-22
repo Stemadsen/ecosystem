@@ -1,7 +1,7 @@
 package dk.stemadsen.ecosystem.model.world
 
-import dk.stemadsen.ecosystem.model.creatures.Bunny
-import dk.stemadsen.ecosystem.model.creatures.Creature
+import dk.stemadsen.ecosystem.model.animals.Bunny
+import dk.stemadsen.ecosystem.model.animals.Animal
 import spock.lang.Specification
 
 import static dk.stemadsen.ecosystem.TestDataUtil.createBunny
@@ -18,20 +18,20 @@ class WorldSpec extends Specification {
         when:
             world.create()
 
-        then: "its creatures are initialized correctly"
-            world.creatures.size() == 100
-            world.creatures.every { it.position }
+        then: "its animals are initialized correctly"
+            world.animals.size() == 100
+            world.animals.every { it.position }
 
-        and: "every creature's position is occupied in the terrain"
-            world.creatures.every { !world.terrain.isFree(it.position) }
+        and: "every animal's position is occupied in the terrain"
+            world.animals.every { !world.terrain.isFree(it.position) }
     }
 
     def "it should advance time"() {
         given:
-            List<Creature> creatures = [Mock(Bunny) {
+            List<Animal> animals = [Mock(Bunny) {
                 3 * act() >> true
             }] * 3
-            World world = new World(creatures: creatures)
+            World world = new World(animals: animals)
 
         when:
             world.advanceTime()
@@ -39,22 +39,22 @@ class WorldSpec extends Specification {
         then: "time is increased"
             world.time == 1
 
-        and: "every creature's act method has been called"
+        and: "every animal's act method has been called"
             true
     }
 
-    def "it should remove dead creatures from the world"() {
+    def "it should remove dead animals from the world"() {
         given:
-            Creature creature = createBunny()
-            World world = new World(creatures: [creature])
+            Animal animal = createBunny()
+            World world = new World(animals: [animal])
 
         when:
-            world.removeCreature(creature)
+            world.removeAnimal(animal)
 
-        then: "the create is removed from the world's list of creatures"
-            !world.creatures.contains(creature)
+        then: "the animal is removed from the world's list of animals"
+            !world.animals.contains(animal)
 
-        and: "the creature's position in the terrain is marked as free"
-            world.terrain.isFree(creature.position)
+        and: "the animal's position in the terrain is marked as free"
+            world.terrain.isFree(animal.position)
     }
 }

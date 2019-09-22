@@ -1,4 +1,4 @@
-package dk.stemadsen.ecosystem.model.creatures
+package dk.stemadsen.ecosystem.model.animals
 
 import spock.lang.Specification
 
