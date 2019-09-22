@@ -1,14 +1,17 @@
 package dk.stemadsen.ecosystem.model.creatures
 
 import dk.stemadsen.ecosystem.model.world.Position
+import dk.stemadsen.ecosystem.model.world.Terrain
 
 abstract class Creature {
 
     int age = 0
+    Terrain terrain
     Position position
     boolean isDead = false
 
-    Creature(Position position) {
+    Creature(Terrain terrain, Position position) {
+        this.terrain = terrain
         this.position = position
     }
 

@@ -21,7 +21,7 @@ class World {
             Position position = terrain.newFreePosition
             if (!position)
                 return
-            Bunny bunny = new Bunny(position)
+            Bunny bunny = new Bunny(terrain, position)
             creatures.add(bunny)
             terrain.markAsOccupied(position)
         }

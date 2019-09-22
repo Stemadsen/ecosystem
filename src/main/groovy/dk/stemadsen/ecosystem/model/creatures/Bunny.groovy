@@ -1,11 +1,12 @@
 package dk.stemadsen.ecosystem.model.creatures
 
 import dk.stemadsen.ecosystem.model.world.Position
+import dk.stemadsen.ecosystem.model.world.Terrain
 
 class Bunny extends Creature {
 
-    Bunny(Position position) {
-        super(position)
+    Bunny(Terrain terrain, Position position) {
+        super(terrain, position)
     }
 
     @Override
@@ -23,6 +24,8 @@ class Bunny extends Creature {
     }
 
     void hop() {
-        position.changeRandomly()
+        Position newPosition = terrain.findFreeAdjacentPosition(position)
+        if (newPosition)
+            position = newPosition
     }
 }
