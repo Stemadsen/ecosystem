@@ -5,7 +5,7 @@ import dk.stemadsen.ecosystem.model.world.Terrain
 
 abstract class Creature {
 
-    int age = 0
+    int age
     Terrain terrain
     Position position
     boolean isDead = false
@@ -13,6 +13,7 @@ abstract class Creature {
     Creature(Terrain terrain, Position position) {
         this.terrain = terrain
         this.position = position
+        age = new Random().nextInt(maxAge + 1)
     }
 
     abstract int getMaxAge()
