@@ -16,7 +16,21 @@ class World {
         spawnAnimals()
     }
 
-    void spawnAnimals() {
+    void advanceTime() {
+        time++
+        Collection<Animal> deadAnimals = animals.findAll {
+            !it.act()
+        }
+        deadAnimals.each {
+            removeAnimal(it)
+        }
+    }
+
+    void recordState() {
+        writeToOutputFile "$time;${animals.size()}"
+    }
+
+    private void spawnAnimals() {
         int height = terrain.height
         int width = terrain.width
         int noOfAnimals = 100
@@ -33,22 +47,8 @@ class World {
         }
     }
 
-    void advanceTime() {
-        time++
-        Collection<Animal> deadAnimals = animals.findAll {
-            !it.act()
-        }
-        deadAnimals.each {
-            removeAnimal(it)
-        }
-    }
-
     private void removeAnimal(Animal animal) {
         animals.remove(animal)
         terrain.markAsFree(animal.getPosition())
-    }
-
-    void recordState() {
-        writeToOutputFile "$time;${animals.size()}"
     }
 }
