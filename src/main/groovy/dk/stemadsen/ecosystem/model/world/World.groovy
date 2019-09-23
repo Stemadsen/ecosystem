@@ -18,12 +18,7 @@ class World {
 
     void advanceTime() {
         time++
-        Collection<Animal> deadAnimals = animals.findAll {
-            !it.act()
-        }
-        deadAnimals.each {
-            removeAnimal(it)
-        }
+        letAnimalsAct()
     }
 
     void recordState() {
@@ -33,7 +28,7 @@ class World {
     private void spawnAnimals() {
         int height = terrain.height
         int width = terrain.width
-        int noOfAnimals = 100
+        int noOfAnimals = 2
 
         (1..noOfAnimals).each {
             Position position = new Position(randomInt(height), randomInt(width))
@@ -41,9 +36,19 @@ class World {
                 position.x = randomInt(height)
                 position.y = randomInt(width)
             }
-            Bunny bunny = new Bunny(terrain, position)
-            animals.add(bunny)
+            animals.add(new Bunny(terrain, position, true))
             terrain.markAsOccupied(position)
+        }
+    }
+
+    private void letAnimalsAct() {
+        List<Animal> newBorns = []
+        List<Animal> deadAnimals = animals.findAll {
+            return !it.act(newBorns)
+        }
+        animals.addAll(newBorns)
+        deadAnimals.each {
+            removeAnimal(it)
         }
     }
 

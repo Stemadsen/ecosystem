@@ -15,13 +15,13 @@ class BunnySpec extends Specification {
 
         when:
             bunny.age = bunny.maxAge
-            bunny.act()
+            bunny.act([])
 
         then:
             bunny.alive
 
         when:
-            bunny.act()
+            bunny.act([])
 
         then:
             !bunny.alive

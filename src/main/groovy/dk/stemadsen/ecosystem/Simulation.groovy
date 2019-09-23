@@ -8,7 +8,7 @@ class Simulation {
 
     long numberOfCycles
 
-    Simulation(long numberOfCycles = 100) {
+    Simulation(long numberOfCycles = 40) {
         this.numberOfCycles = numberOfCycles
         prepareRecordState()
     }
@@ -16,11 +16,11 @@ class Simulation {
     void run() {
         World world = new World()
         world.create()
-        (1..numberOfCycles).each {
-            world.recordState()
-            world.advanceTime()
-        }
         world.recordState()
+        (1..numberOfCycles).each {
+            world.advanceTime()
+            world.recordState()
+        }
     }
 
     private static void prepareRecordState() {

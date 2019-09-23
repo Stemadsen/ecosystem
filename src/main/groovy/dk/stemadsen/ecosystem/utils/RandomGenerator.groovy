@@ -7,4 +7,8 @@ class RandomGenerator {
     static final int randomInt(int bound) {
         return RANDOM.nextInt(bound)
     }
+
+    static final double randomDouble() {
+        return RANDOM.nextDouble()
+    }
 }

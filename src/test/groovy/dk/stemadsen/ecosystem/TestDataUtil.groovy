@@ -10,7 +10,22 @@ class TestDataUtil {
 
     private static final TERRAIN_SIZE = 100
 
+    /**
+     * Creates a TestAnimal with breeding probability 1, litter size 5, max age 10 and random age.
+     */
+    static TestAnimal createAnimal(Position position = null) {
+        return new TestAnimal(createTerrain(), position ?: createPosition(), true)
+    }
+
     static Bunny createBunny() {
-        return new Bunny(new Terrain(TERRAIN_SIZE), new Position(randomInt(TERRAIN_SIZE), randomInt(TERRAIN_SIZE)))
+        return new Bunny(createTerrain(), createPosition(), true)
+    }
+
+    static Position createPosition() {
+        return new Position(randomInt(TERRAIN_SIZE), randomInt(TERRAIN_SIZE))
+    }
+
+    static Terrain createTerrain() {
+        return new Terrain(TERRAIN_SIZE)
     }
 }
