@@ -10,7 +10,7 @@ abstract class Animal {
     int age
     Terrain terrain
     Position position
-    boolean isDead = false
+    boolean alive = true
 
     Animal(Terrain terrain, Position position) {
         this.terrain = terrain
@@ -25,7 +25,7 @@ abstract class Animal {
      * @return true if the animal lives to perform actions, or false if the animal dies/is dead.
      */
     boolean act() {
-        if (isDead)
+        if (!alive)
             // A dead animal should never be called act() upon, but just in case ...
             return false
         if (age > maxAge) {
@@ -38,6 +38,6 @@ abstract class Animal {
     }
 
     void die() {
-        isDead = true
+        alive = false
     }
 }

@@ -18,12 +18,12 @@ class BunnySpec extends Specification {
             bunny.act()
 
         then:
-            !bunny.isDead
+            bunny.alive
 
         when:
             bunny.act()
 
         then:
-            bunny.isDead
+            !bunny.alive
     }
 }
