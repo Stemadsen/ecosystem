@@ -4,7 +4,7 @@ import dk.stemadsen.ecosystem.model.animals.Bunny
 import dk.stemadsen.ecosystem.model.animals.Animal
 
 import static dk.stemadsen.ecosystem.utils.FileWriter.writeToOutputFile
-import static dk.stemadsen.ecosystem.utils.RandomGenerator.nextInt
+import static dk.stemadsen.ecosystem.utils.RandomGenerator.randomInt
 
 class World {
 
@@ -22,10 +22,10 @@ class World {
         int noOfAnimals = 100
 
         (1..noOfAnimals).each {
-            Position position = new Position(nextInt(height), nextInt(width))
+            Position position = new Position(randomInt(height), randomInt(width))
             while (!terrain.isFree(position)) {
-                position.x = nextInt(height)
-                position.y = nextInt(width)
+                position.x = randomInt(height)
+                position.y = randomInt(width)
             }
             Bunny bunny = new Bunny(terrain, position)
             animals.add(bunny)

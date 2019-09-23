@@ -3,7 +3,7 @@ package dk.stemadsen.ecosystem.model.animals
 import dk.stemadsen.ecosystem.model.world.Position
 import dk.stemadsen.ecosystem.model.world.Terrain
 
-import static dk.stemadsen.ecosystem.utils.RandomGenerator.nextInt
+import static dk.stemadsen.ecosystem.utils.RandomGenerator.randomInt
 
 abstract class Animal {
 
@@ -15,7 +15,7 @@ abstract class Animal {
     Animal(Terrain terrain, Position position) {
         this.terrain = terrain
         this.position = position
-        age = nextInt(maxAge + 1)
+        age = randomInt(maxAge + 1)
     }
 
     abstract int getMaxAge()

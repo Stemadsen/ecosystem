@@ -1,6 +1,6 @@
 package dk.stemadsen.ecosystem.model.world
 
-import static dk.stemadsen.ecosystem.utils.RandomGenerator.nextInt
+import static dk.stemadsen.ecosystem.utils.RandomGenerator.randomInt
 
 class Terrain {
 
@@ -26,7 +26,7 @@ class Terrain {
         List<Position> freeNeighbors = findAllFreeAdjacentPositions(position)
         if (!freeNeighbors)
             return null
-        return freeNeighbors[nextInt(freeNeighbors.size())]
+        return freeNeighbors[randomInt(freeNeighbors.size())]
     }
 
     /**
