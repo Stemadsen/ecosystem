@@ -6,10 +6,10 @@ import spock.lang.Specification
 class EcosystemSimulatorSpec extends Specification {
 
     def "it should run application"() {
-        when:
+        when: "the application is started"
             EcosystemSimulator.main()
 
-        then:
-            notThrown()
+        then: "it's all good"
+            true
     }
 }
