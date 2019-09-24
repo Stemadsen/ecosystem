@@ -12,7 +12,7 @@ class World {
     Terrain terrain = new Terrain(100)
     List<Animal> animals = []
 
-    void create() {
+    World() {
         spawnAnimals()
     }
 

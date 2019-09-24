@@ -7,7 +7,8 @@ class EcosystemSimulator {
     static void main(String[] args) {
         Simulation simulation = new Simulation()
 
-        println "Running simulation ...\n"
+        println "Running simulation ..."
+        println ""
 
         long startTime = System.currentTimeMillis()
 
@@ -15,6 +16,7 @@ class EcosystemSimulator {
 
         long duration = System.currentTimeMillis() - startTime
 
+        println ""
         println "Simulation over, took $duration milliseconds."
         println "Output saved to $FileWriter.OUTPUT_FILE_PATH"
     }

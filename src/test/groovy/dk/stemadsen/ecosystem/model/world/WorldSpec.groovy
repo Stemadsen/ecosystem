@@ -16,10 +16,7 @@ class WorldSpec extends Specification {
         expect: "its time is initialized correctly"
             world.time == 0
 
-        when:
-            world.create()
-
-        then: "its animals are initialized correctly"
+        and: "its animals are initialized correctly"
             world.animals.size() == 2
             world.animals.every { it.position }
 
