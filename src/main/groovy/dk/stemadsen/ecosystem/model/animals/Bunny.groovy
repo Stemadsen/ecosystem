@@ -40,7 +40,10 @@ class Bunny extends Animal {
 
     private void hop() {
         Position newPosition = terrain.findFreeAdjacentPosition(position)
-        if (newPosition)
+        if (newPosition) {
+            terrain.markAsFree(position)
+            terrain.markAsOccupied(newPosition)
             position = newPosition
+        }
     }
 }

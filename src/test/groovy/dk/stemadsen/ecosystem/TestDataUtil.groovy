@@ -17,8 +17,8 @@ class TestDataUtil {
         return new TestAnimal(createTerrain(), position ?: createPosition(), true)
     }
 
-    static Bunny createBunny() {
-        return new Bunny(createTerrain(), createPosition(), true)
+    static Bunny createBunny(Position position = null, Terrain terrain = null) {
+        return new Bunny(terrain ?: createTerrain(), position ?: createPosition(), true)
     }
 
     static Position createPosition() {
