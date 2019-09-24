@@ -1,7 +1,9 @@
 package dk.stemadsen.ecosystem.model.world
 
+import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
+@EqualsAndHashCode
 @ToString(includePackage = false, includeNames = true)
 class Position {
 
