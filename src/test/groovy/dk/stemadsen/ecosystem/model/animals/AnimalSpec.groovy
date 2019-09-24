@@ -28,4 +28,21 @@ class AnimalSpec extends Specification {
                 !terrain.isFree(it.position)
             }
     }
+
+    def "it should not breed if there is no free space"() {
+        given: "an animal with breeding probability 1"
+            Terrain terrain = new Terrain(10)
+            Animal animal = createAnimal(new Position(5, 5), terrain)
+            animal.breed([])
+
+        expect: "there is no more room around the animal"
+            terrain.findAllFreeAdjacentPositions(animal.position) == []
+
+        when: "the animal tries to breed"
+            List<Animal> newBornsOut = []
+            animal.breed(newBornsOut)
+
+        then: "it did not"
+            newBornsOut.size() == 0
+    }
 }
