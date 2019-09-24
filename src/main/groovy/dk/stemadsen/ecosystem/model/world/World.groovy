@@ -46,6 +46,8 @@ class World {
         List<Animal> deadAnimals = animals.findAll {
             return !it.act(newBorns)
         }
+        // Since the newborns are not added to the animals list before this moment,
+        // they do not get a chance to act this time around. This is intentional.
         animals.addAll(newBorns)
         deadAnimals.each {
             removeAnimal(it)
@@ -54,6 +56,6 @@ class World {
 
     private void removeAnimal(Animal animal) {
         animals.remove(animal)
-        terrain.markAsFree(animal.getPosition())
+        terrain.markAsFree(animal.getPosition()) // TODO This should be done by the animal to avoid delay
     }
 }

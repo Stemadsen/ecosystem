@@ -54,10 +54,11 @@ abstract class Animal {
     }
 
     protected void breed(Collection<Animal> newbornsOut) {
-        if (randomDouble() > breedingProbability)
+        if (randomDouble() >= breedingProbability)
             return
-        terrain.findAllFreeAdjacentPositions(position).take(litterSize).each { freePosition ->
-            newbornsOut.add(getNewBorn(freePosition))
+        terrain.findAllFreeAdjacentPositions(position).take(litterSize).each { position ->
+            newbornsOut.add(getNewBorn(position))
+            terrain.markAsOccupied(position)
         }
     }
 
