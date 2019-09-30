@@ -10,10 +10,10 @@ class BunnySpec extends Specification {
 
     def "it should update terrain when hopping"() {
         given:
-            Position originalPosition = new Position(5, 5)
             Terrain terrain = new Terrain(10)
-            terrain.markAsOccupied(originalPosition)
+            Position originalPosition = new Position(5, 5)
             Bunny bunny = createBunny(originalPosition, terrain)
+            terrain.markAsOccupied(bunny)
 
         when:
             bunny.hop()

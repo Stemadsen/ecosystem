@@ -5,7 +5,7 @@ import dk.stemadsen.ecosystem.utils.FileWriter
 class EcosystemSimulator {
 
     static void main(String[] args) {
-        Simulation simulation = new Simulation()
+        Simulation simulation = new Simulation(1500)
 
         println "Running simulation ..."
         println ""

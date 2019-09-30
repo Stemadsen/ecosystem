@@ -2,7 +2,9 @@ package dk.stemadsen.ecosystem.model.animals
 
 import dk.stemadsen.ecosystem.model.world.Position
 import dk.stemadsen.ecosystem.model.world.Terrain
+import groovy.transform.ToString
 
+@ToString(includePackage = false, includeNames = true, includeSuper = true)
 class Bunny extends Animal {
 
     Bunny(Terrain terrain, Position position, boolean randomAge) {
@@ -39,11 +41,6 @@ class Bunny extends Animal {
     }
 
     private void hop() {
-        Position newPosition = terrain.findFreeAdjacentPosition(position)
-        if (newPosition) {
-            terrain.markAsFree(position)
-            terrain.markAsOccupied(newPosition)
-            position = newPosition
-        }
+        moveToFreePosition()
     }
 }

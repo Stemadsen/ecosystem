@@ -53,16 +53,30 @@ abstract class Animal {
         return true
     }
 
+    protected void moveToFreePosition() {
+        Position freePosition = terrain.findFreeAdjacentPosition(position)
+        if (freePosition) {
+            moveToPosition(freePosition)
+        }
+    }
+
+    protected void moveToPosition(Position newPosition) {
+        terrain.markAsFree(position)
+        position = newPosition
+        terrain.markAsOccupied(this)
+    }
+
     protected void breed(Collection<Animal> newbornsOut) {
         if (randomDouble() >= breedingProbability)
             return
         terrain.findAllFreeAdjacentPositions(position).take(litterSize).each { position ->
-            newbornsOut.add(getNewBorn(position))
-            terrain.markAsOccupied(position)
+            Animal newBorn = getNewBorn(position)
+            newbornsOut.add(newBorn)
+            terrain.markAsOccupied(newBorn)
         }
     }
 
-    private void die() {
+    protected void die() {
         alive = false
     }
 }

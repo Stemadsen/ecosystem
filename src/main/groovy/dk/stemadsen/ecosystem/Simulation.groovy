@@ -8,7 +8,7 @@ class Simulation {
 
     long noOfIterations
 
-    Simulation(long noOfIterations = 500) {
+    Simulation(long noOfIterations) {
         this.noOfIterations = noOfIterations
         prepareRecordState()
     }
@@ -20,14 +20,14 @@ class Simulation {
             world.advanceTime()
             world.recordState()
             if (world.animals.isEmpty()) {
-                println "Population died out after $it iterations!"
+                println "Animals died out after $it iterations!"
                 return
             }
         }
-        println "Animals in the end: ${world.animals.size()}"
+        println "(Bunnies, Foxes) in the end: (${world.bunnies.size()}, ${world.foxes.size()})"
     }
 
     private static void prepareRecordState() {
-        writeToOutputFile "time;animals"
+        writeToOutputFile "Time;Bunnies;Foxes"
     }
 }

@@ -1,18 +1,21 @@
 package dk.stemadsen.ecosystem.model.world
 
+import dk.stemadsen.ecosystem.model.animals.Animal
+import dk.stemadsen.ecosystem.model.animals.Bunny
+
 import static dk.stemadsen.ecosystem.utils.RandomGenerator.randomInt
 
 class Terrain {
 
     int height
     int width
-    /** The cells of the terrain, each boolean indicating whether that cell is occupied. */
-    boolean[][] grid
+    /** The positions of the terrain, containing the animals occupying those positions. */
+    Animal[][] grid
 
     Terrain(int height, int width) {
         this.height = height
         this.width = width
-        grid = new boolean[height][width]
+        grid = new Animal[height][width]
     }
 
     Terrain(int size) {
@@ -23,48 +26,72 @@ class Terrain {
      * Returns a random free position adjacent (not diagonally) to the given position, if one exists, or null otherwise.
      */
     Position findFreeAdjacentPosition(Position position) {
-        List<Position> freeNeighbors = findAllFreeAdjacentPositions(position)
-        if (!freeNeighbors)
+        List<Position> freeAdjacentPositions = findAllFreeAdjacentPositions(position)
+        if (!freeAdjacentPositions)
             return null
-        return freeNeighbors[randomInt(freeNeighbors.size())]
+        return freeAdjacentPositions[randomInt(freeAdjacentPositions.size())]
     }
 
     /**
      * Finds all free positions adjacent (not diagonally) to the given position.
      */
     List<Position> findAllFreeAdjacentPositions(Position position) {
-        List<Position> freeNeighbors = []
+        List<Position> adjacentPositions = findAllAdjacentPositions(position)
+        return adjacentPositions.findAll { isFree(it) }
+    }
+
+    /**
+     * Returns a random Bunny adjacent (not diagonally) to the given position, if one exists, or null otherwise.
+     */
+    Bunny findAdjacentBunny(Position position) {
+        List<Bunny> adjacentBunnies = findAllAdjacentBunnies(position)
+        if (!adjacentBunnies)
+            return null
+        return adjacentBunnies[randomInt(adjacentBunnies.size())]
+    }
+
+    /**
+     * Finds all Bunnies adjacent (not diagonally) to the given position.
+     */
+    List<Bunny> findAllAdjacentBunnies(Position position) {
+        List<Position> adjacentPositions = findAllAdjacentPositions(position)
+        return adjacentPositions.findResults {
+            Animal animal = grid[it.x][it.y]
+            return animal instanceof Bunny ? animal : null
+        }
+    }
+
+    /**
+     * Finds all positions adjacent (not diagonally) to the given position.
+     */
+    List<Position> findAllAdjacentPositions(Position position) {
+        List<Position> adjacentPositions = []
         int x = position.x
         int y = position.y
         if (x > 0) {
-            Position upperNeighbor = new Position(x - 1, y)
-            if (isFree(upperNeighbor))
-                freeNeighbors.add(upperNeighbor)
+            adjacentPositions.add(new Position(x - 1, y))
         }
         if (y > 0) {
-            Position leftNeighbor = new Position(x, y - 1)
-            if (isFree(leftNeighbor))
-                freeNeighbors.add(leftNeighbor)
+            adjacentPositions.add(new Position(x, y - 1))
         }
         if (y < width - 1) {
-            Position rightNeighbor = new Position(x, y + 1)
-            if (isFree(rightNeighbor))
-                freeNeighbors.add(rightNeighbor)
+            adjacentPositions.add(new Position(x, y + 1))
         }
         if (x < height - 1) {
-            Position lowerNeighbor = new Position(x + 1, y)
-            if (isFree(lowerNeighbor))
-                freeNeighbors.add(lowerNeighbor)
+            adjacentPositions.add(new Position(x + 1, y))
         }
-        return freeNeighbors
+        return adjacentPositions
     }
 
     void markAsFree(Position position) {
-        grid[position.x][position.y] = false
+        grid[position.x][position.y] = null
     }
 
-    void markAsOccupied(Position position) {
-        grid[position.x][position.y] = true
+    /**
+     * Marks the animal's position in the terrain as occupied by the animal.
+     */
+    void markAsOccupied(Animal animal) {
+        grid[animal.position.x][animal.position.y] = animal
     }
 
     boolean isFree(Position position) {

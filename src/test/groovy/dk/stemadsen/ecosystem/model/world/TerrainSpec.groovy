@@ -1,6 +1,11 @@
 package dk.stemadsen.ecosystem.model.world
 
+import dk.stemadsen.ecosystem.model.animals.Bunny
 import spock.lang.Specification
+
+import static dk.stemadsen.ecosystem.TestDataUtil.createAnimal
+import static dk.stemadsen.ecosystem.TestDataUtil.createBunny
+import static dk.stemadsen.ecosystem.TestDataUtil.createFox
 
 class TerrainSpec extends Specification {
 
@@ -19,50 +24,83 @@ class TerrainSpec extends Specification {
             }
     }
 
-    def "it should find all free positions adjacent to middle position"() {
+    def "it should find all positions adjacent to middle position"() {
         given:
             Terrain terrain = new Terrain(10)
             int x = 5
             int y = 5
 
         when:
-            List<Position> freeAdjacentPositions = terrain.findAllFreeAdjacentPositions(new Position(x, y))
+            List<Position> positions = terrain.findAllAdjacentPositions(new Position(x, y))
 
         then:
-            freeAdjacentPositions.size() == 4
-            freeAdjacentPositions.any { it.x == x - 1 && it.y == y }
-            freeAdjacentPositions.any { it.x == x && it.y == y - 1 }
-            freeAdjacentPositions.any { it.x == x && it.y == y + 1 }
-            freeAdjacentPositions.any { it.x == x + 1 && it.y == y }
+            positions.size() == 4
+            positions.any { it.x == x - 1 && it.y == y }
+            positions.any { it.x == x && it.y == y - 1 }
+            positions.any { it.x == x && it.y == y + 1 }
+            positions.any { it.x == x + 1 && it.y == y }
     }
 
-    def "it should find all free positions adjacent to upper left corner"() {
+    def "it should find all positions adjacent to top left corner"() {
         given:
             Terrain terrain = new Terrain(10)
             int x = 0
             int y = 0
 
         when:
-            List<Position> freeAdjacentPositions = terrain.findAllFreeAdjacentPositions(new Position(x, y))
+            List<Position> positions = terrain.findAllAdjacentPositions(new Position(x, y))
 
         then:
-            freeAdjacentPositions.size() == 2
-            freeAdjacentPositions.any { it.x == x && it.y == y + 1 }
-            freeAdjacentPositions.any { it.x == x + 1 && it.y == y }
+            positions.size() == 2
+            positions.any { it.x == x && it.y == y + 1 }
+            positions.any { it.x == x + 1 && it.y == y }
     }
 
-    def "it should find all free positions adjacent to lower right corner"() {
+    def "it should find all positions adjacent to bottom right corner"() {
         given:
             Terrain terrain = new Terrain(10)
             int x = 9
             int y = 9
 
         when:
-            List<Position> freeAdjacentPositions = terrain.findAllFreeAdjacentPositions(new Position(x, y))
+            List<Position> positions = terrain.findAllAdjacentPositions(new Position(x, y))
 
         then:
-            freeAdjacentPositions.size() == 2
-            freeAdjacentPositions.any { it.x == x - 1 && it.y == y }
-            freeAdjacentPositions.any { it.x == x && it.y == y - 1 }
+            positions.size() == 2
+            positions.any { it.x == x - 1 && it.y == y }
+            positions.any { it.x == x && it.y == y - 1 }
+    }
+
+    def "it should find all free adjacent positions"() {
+        given: "two adjacent positions are free, two are occupied"
+            Terrain terrain = new Terrain(10)
+            int x = 5
+            int y = 5
+            terrain.markAsOccupied(createAnimal(new Position(x, y - 1)))
+            terrain.markAsOccupied(createAnimal(new Position(x + 1, y)))
+
+        when:
+            List<Position> positions = terrain.findAllFreeAdjacentPositions(new Position(x, y))
+
+        then: "the two free positions are returned"
+            positions.size() == 2
+            positions.any { it.x == x - 1 && it.y == y }
+            positions.any { it.x == x && it.y == y + 1 }
+    }
+
+    def "it should find all adjacent Bunnies"() {
+        given: "two adjacent Bunnies and one adjacent Fox"
+            Terrain terrain = new Terrain(10)
+            int x = 5
+            int y = 5
+            terrain.markAsOccupied(createBunny(new Position(x- 1, y )))
+            terrain.markAsOccupied(createBunny(new Position(x, y - 1)))
+            terrain.markAsOccupied(createFox(new Position(x + 1, y)))
+
+        when:
+            List<Bunny> bunnies = terrain.findAllAdjacentBunnies(new Position(x, y))
+
+        then: "the two Bunniesare returned"
+            bunnies.size() == 2
     }
 }
